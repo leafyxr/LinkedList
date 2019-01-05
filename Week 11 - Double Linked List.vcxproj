@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\doubleLinkedList.h" />
+    <ClInclude Include="src\doubleLinkedList.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
