@@ -1,32 +1,19 @@
 #pragma once
-#include<vector>;
-#include<memory>;
+#include<memory>
+#include"ListNode.h"
 
 using namespace std;
-template<typename T>
-class ListNode
-{
-private:
-	T m_TData;
-public:
-	ListNode();
-	ListNode(T Data);
-	~ListNode();
-	unique_ptr<ListNode> m_pNext;
-	ListNode *m_pPrev = nullptr;
-};
 
-template<typename T>
 class DoubleLinkedList
 {
-private :
+private:
 	unique_ptr<ListNode> m_pHead;
 	ListNode * m_pTail;
-public :
+public:
 	DoubleLinkedList();
 	~DoubleLinkedList();
-	void addNode(const T Data);
-	bool removeNode(const T Data);
+	void addNode(const int Data);
+	bool removeNode(const int Data);
 	void display();
 };
 

@@ -1,48 +1,41 @@
-#include "doubleLinkedList.h";
+#include "doubleLinkedList.h"
+#include<memory>
+#include<iostream>
 
-template<typename T>
-ListNode<T>::ListNode() {}
-template<typename T>
-ListNode<T>::~ListNode() {}
-
-template<typename T>
-ListNode<T>::ListNode(T Data)
-{
-}
-
-
-
-template<typename T>
-DoubleLinkedList<T>::DoubleLinkedList() {}
-template<typename T>
-DoubleLinkedList<T>::~DoubleLinkedList() {}
-
-template<typename T>
-void DoubleLinkedList<T>::addNode(const T Data) {
-	ListNode* curr = nullptr;
-	if (m_pHead.get() == nullptr) { //If list is empty.
-		m_pHead = std::make_unique<ListNode>(Data);
+void DoubleLinkedList::addNode(const int Data) {
+	display();
+	cout << "Adding " << Data << " to List..." << endl;
+	ListNode *m_pCurr = nullptr;
+	if (m_pHead.get() == nullptr) {
+		m_pHead = make_unique<ListNode>(Data);
 	}
-	else if (m_pHead.get()->next.get() == nullptr) { //If list has one element
-		m_pHead.get()-> = std::make_unique<ListNode>(Data);
-		curr = m_pHead.get()->next.get();
-		curr->prev = m_pHead.get();
-		tail = curr;
+	else if (m_pHead.get()->m_pNext.get() == nullptr) {
+		m_pHead.get()->m_pNext = make_unique<ListNode>(Data);
+		m_pCurr = m_pHead.get()->m_pNext.get();
+		m_pCurr->m_pPrev = m_pHead.get();
+		m_pTail = m_pCurr;
 	}
 	else {
-		m_pTail-> = std::make_unique<ListNode>(Data);
-		curr = m_pTail->next.get(); //Sets raw pointer to the last element.
-		curr->prev = m_pTail;
-		m_pTail = curr;
+		m_pTail->m_pNext = make_unique<ListNode>(Data);
+		m_pCurr = m_pTail->m_pNext.get();
+		m_pCurr->m_pPrev = m_pTail;
+		m_pTail = m_pCurr;
 	}
+	display();
 }
 
-template<typename T>
-void DoubleLinkedList<T>::removeNode(const T Data) {
-
+bool DoubleLinkedList::removeNode(const int Data) {
+	return false;
 }
 
-template<typename T>
-void DoubleLinkedList<T>::display() {
-
+void DoubleLinkedList::display() {
+	ListNode *m_pCurr = m_pHead.get();
+	cout << "List ( ";
+	while (m_pCurr != nullptr) {
+		cout << m_pCurr->getData() << "  ";
+		m_pCurr = m_pCurr->m_pNext.get();
+	}
+	cout << ")" << endl;
 }
+
+
