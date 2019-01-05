@@ -2,13 +2,12 @@
 #include<memory>
 #include"ListNode.h"
 
-using namespace std;
-
 class DoubleLinkedList
 {
 private:
-	unique_ptr<ListNode> m_pHead;
+	std::unique_ptr<ListNode> m_pHead;
 	ListNode * m_pTail;
+	int iListLength = 0;
 public:
 	DoubleLinkedList();
 	~DoubleLinkedList();
@@ -16,4 +15,3 @@ public:
 	bool removeNode(const int Data);
 	void display();
 };
-

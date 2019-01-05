@@ -1,8 +1,6 @@
 #pragma once
 #include<memory>
 
-using namespace std;
-
 class ListNode
 {
 private:
@@ -12,6 +10,6 @@ public:
 	~ListNode();
 	ListNode(int Data);
 	int getData();
-	unique_ptr<ListNode> m_pNext;
+	std::unique_ptr<ListNode> m_pNext;
 	ListNode *m_pPrev = nullptr;
 };

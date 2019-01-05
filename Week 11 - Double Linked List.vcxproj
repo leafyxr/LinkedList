@@ -126,12 +126,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\doubleLinkedList.cpp" />
+    <ClCompile Include="src\DoubleLinkedList.cpp" />
     <ClCompile Include="src\ListNode.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\doubleLinkedList.h" />
+    <ClInclude Include="include\DoubleLinkedList.h" />
     <ClInclude Include="include\ListNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
