@@ -19,16 +19,11 @@
 int main() /** Entry point for the application */
 {
 	DoubleLinkedList myList;
-	myList.addNode(5);
-	myList.removeNode(1);
-	myList.addNode(7);
-	myList.addNode(9);
-	myList.removeNode(2);
-	myList.addNode(3);
-	myList.addNode(4);
-	myList.addNode(3);
-	myList.addNode(4);
-	myList.removeNode(2);
+	myList.addNodeHead(3);
+	myList.addNodeHead(6);
+	myList.addNodeHead(4);
+	myList.addNodeHead(2);
+	myList.addNodeHead(6);
 	
 	_CrtDumpMemoryLeaks(); // Look in the output window for a report
 	system("pause");
