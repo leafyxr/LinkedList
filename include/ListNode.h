@@ -9,24 +9,29 @@
 * \brief an Integer Data Node for use in a double linked list
 *
 */
+template<typename T>
 class ListNode
 {
 private:
-	int m_iData;//!< Data Contained in Node
+	T m_iData;//!< Data Contained in Node
 public:
 	//! Default Constructor, Data will be empty
-	ListNode();
+	ListNode(){}
 
 	//! Deconstructor
-	~ListNode();
+	~ListNode(){}
 
 	//! Constructor, allows data to be set
 	/*!
 	\param Data  -  Data to be contained in new node.*/
-	ListNode(int Data);
+	ListNode(T Data) {
+		m_iData = Data;
+	}
 
 	//! Returns value of data held by node
-	int getData();
+	T getData() {
+		return m_iData;
+	}
 
 	std::unique_ptr<ListNode> m_pNext;//!< Unique Pointer to Next Node
 	ListNode *m_pPrev = nullptr;//!< Standard Pointer to Previous Node, Default is NULL
