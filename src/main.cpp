@@ -23,6 +23,8 @@ int main() /** Entry point for the application */
 	else {
 		cout << "List is not empty" << endl << endl;
 	}
+	myList.addNodeAfter(38, 1);
+	myList.addNodeAfter(63, 5);
 	myList.addNodeTail(56);
 	myList.removeNodeHead();
 	myList.addNodeTail(67);
@@ -38,9 +40,17 @@ int main() /** Entry point for the application */
 	myList.addNodeTail(42);
 	myList.addNodeTail(25);
 	myList.addNodeTail(38);
-	myList.getNode(4);
-	myList.getNodeHead();
-	myList.getNodeTail();
+	myList.getNodeData(4);
+	myList.getHeadData();
+	myList.getTailData();
+	myList.addNodeAfter(38, 5);
+	myList.addNodeBefore(38, 5);
+	myList.selectNode(3);
+	myList.getSelectedNodeData();
+	myList.scrollForwards();
+	myList.getSelectedNodeData();
+	myList.scrollBackwards();
+	myList.getSelectedNodeData();
 	cout << "Length of list is " << myList.getLength() << endl << endl;
 	if (myList.isEmpty()) {
 		cout << "List is empty" << endl << endl;

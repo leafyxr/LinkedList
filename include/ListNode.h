@@ -36,3 +36,4 @@ public:
 	std::unique_ptr<ListNode> m_pNext;//!< Unique Pointer to Next Node
 	ListNode *m_pPrev = nullptr;//!< Standard Pointer to Previous Node, Default is NULL
 };
+

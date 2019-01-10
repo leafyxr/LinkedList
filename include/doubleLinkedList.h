@@ -15,12 +15,15 @@ using namespace std;
 * \brief A double linked list data structure using Integers
 *
 */
+
 template<typename T>
 class DoubleLinkedList
 {
 private:
 	unique_ptr<ListNode<T>> m_pHead;//!< Pointer to Head
 	ListNode<T> * m_pTail;//!< Pointer to Tail
+	ListNode<T> * m_pSelected;//!< Current Pointer Selected
+	int iSelecedIndex = 0;
 	int iListLength = 0;//!< Length of list
 public:
 
@@ -30,11 +33,64 @@ public:
 	//! Deconstructor
 	~DoubleLinkedList(){}
 
-	//! Adds a Node at a specified point 
+	//! Adds a Node after a specified point 
 	/*!
 	\param Data  -  Data contained in new node.
 	\param Index  -  Position in list.*/
-	void addNode(const T Data, const int Index) {
+	void addNodeAfter(const T Data, const int Index) {
+		ListNode<T> *m_pCurr = m_pHead.get();
+		if (Index > iListLength) {
+			cout << "Index after last node, Adding to tail instead" << endl << endl;
+			addNodeTail(Data);
+			return;
+		}
+		display();
+		for (int i = 1; i < Index; i++) {
+			m_pCurr = m_pCurr->m_pNext.get();
+		}
+		cout << "Adding " << Data << " Between Nodes # " << Index << " & # " << Index + 1 << endl;
+		if (m_pHead.get() == nullptr) {
+			m_pHead = make_unique<ListNode<T>>(Data);
+		}
+		else if (m_pHead.get()->m_pNext.get() == nullptr) {
+			if (Index <= 1) {
+				addNodeHead(Data);
+			}
+			else {
+				addNodeTail(Data);
+			}
+		}
+		else {
+			vector<T> v_tHeldData;
+			ListNode<T> *m_pCurr2 = nullptr;
+			m_pCurr2 = m_pCurr;
+			for (int i = Index; i < iListLength; i++) {
+				v_tHeldData.push_back(m_pCurr2->getData());
+				m_pCurr2 = m_pCurr2->m_pNext.get();
+			}
+			m_pCurr->m_pNext = make_unique<ListNode<T>>(Data);
+			m_pCurr2 = m_pCurr->m_pNext.get();
+			m_pCurr2->m_pPrev = m_pCurr;
+			m_pTail = m_pCurr2;
+			for (int i = 0; i < v_tHeldData.size(); i++) {
+				m_pTail->m_pNext = make_unique<ListNode<T>>(v_tHeldData[i]);
+				m_pCurr2 = m_pTail->m_pNext.get();
+				m_pCurr2->m_pPrev = m_pTail;
+				m_pTail = m_pCurr2;
+
+			}
+		}
+		iListLength++;
+		display();
+		cout << endl;
+	}
+
+	//! Adds a Node after a specified point 
+	/*!
+	\param Data  -  Data contained in new node.
+	\param Index  -  Position in list.*/
+	void addNodeBefore(const T Data, const int Index) {
+		addNodeAfter(Data, Index - 1);
 	}
 
 	//! Adds a Node at the Head
@@ -60,7 +116,7 @@ public:
 			vector<T> v_tHeldData;
 			m_pCurr = m_pHead.get();
 			for (int i = 0; i < iListLength; i++) {
-				v_iHeldData.push_back(m_pCurr->getData());
+				v_tHeldData.push_back(m_pCurr->getData());
 				m_pCurr = m_pCurr->m_pNext.get();
 			}
 			m_pHead = make_unique<ListNode<T>>(Data);
@@ -177,10 +233,10 @@ public:
 		cout << ") Current Length is " << getLength() << endl;
 	}
 
-	//! Returns a Node from a specified point 
+	//! Returns a Nodes Data  from a specified point 
 	/*!
 	\param Index  -  Position in list.*/
-	T getNode(const int Index) {
+	T getNodeData(const int Index) {
 		ListNode<T> *m_pCurr = nullptr;
 		if (m_pHead.get() == nullptr) {
 			cout << "Error: List is Empty" << endl << endl;
@@ -198,17 +254,91 @@ public:
 		return m_pCurr->getData();
 	}
 
-	//! Returns the current Head Node
-	T getNodeHead() {
-		return getNode(1);
+	//! Returns the current Head Nodes Data
+	T getHeadData() {
+		return getNodeData(1);
 	}
 
-	//! Returns the current Tail Node
-	T getNodeTail() {
-		return getNode(getLength());
+	//! Returns the current Tail Nodes Data
+	T getTailData() {
+		return getNodeData(getLength());
 	}
 
-	//! Checks and returns current Length
+	//! Returns the Selected Nodes Data
+	T getSelectedNodeData() {
+		return getNodeData(iSelecedIndex);
+	}
+
+	//! Selects a specific Node
+	/*!
+	\param Index  -  Position in list.*/
+	bool selectNode(const int Index) {
+		if (m_pHead.get() == nullptr) {
+			cout << "Error: List is Empty" << endl << endl;
+			return false;
+		}
+		if (Index > iListLength) {
+			cout << "Error: Invalid Index" << endl << endl;
+			return false;
+		}
+		m_pSelected = m_pHead.get();
+		for (int i = 1; i < Index; i++) {
+			m_pSelected = m_pSelected->m_pNext.get();
+		}
+		iSelecedIndex = Index;
+		cout << "Selected Node # " << iSelecedIndex << endl << endl;
+		return true;
+	}
+
+	//! Selects the Head Node
+	bool selectHead(){
+		cout << "Selecting Head..." << endl << endl;
+		return selectNode(1);
+	}
+
+	//! Selects the Tail Node
+	bool selectTail(){
+		cout << "Selecting Tail..." << endl << endl;
+		return selectNode(iListLength);
+	}
+
+	//! Selects the next node in the list
+	bool scrollForwards() {
+		if (m_pSelected == nullptr) {
+			cout << "Error: No Node Selected" << endl << endl;
+			return false;
+		}
+		else if (m_pSelected->m_pNext == nullptr) {
+			cout << "Error: Next Node is Empty" << endl << endl;
+			return false;
+		}
+		else {
+			cout << "Next Node Selected" << endl << endl;
+			m_pSelected = m_pSelected->m_pNext.get();
+			iSelecedIndex++;
+			return true;
+		}
+	}
+
+	//! Selects the previous node in the list
+	bool scrollBackwards() {
+		if (m_pSelected == nullptr) {
+			cout << "Error: No Node Selected" << endl << endl;
+			return false;
+		}
+		else if (m_pSelected->m_pPrev == nullptr) {
+			cout << "Error: Previous Node is Empty" << endl << endl;
+			return false;
+		}
+		else {
+			cout << "Previous Node Selected" << endl << endl;
+			m_pSelected = m_pSelected->m_pPrev;
+			iSelecedIndex--;
+			return true;
+		}
+	}
+
+	//! Checks and returns current Lengthdo the same 
 	int getLength() {
 		ListNode<T> *m_pCurr = m_pHead.get();
 		int iLength = 0;
