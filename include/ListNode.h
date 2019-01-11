@@ -1,4 +1,5 @@
 #pragma once
+#define _CRTDBG_MAP_ALLOC  
 #include<memory>
 /*! \file ListNode.h
 * \brief Header file for ListNode Class
@@ -6,7 +7,7 @@
 */
 
 /*! \class ListNode
-* \brief an Integer Data Node for use in a double linked list
+* \brief a Data Node for use in a double linked list
 *
 */
 template<typename T>
